@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="hero">
+    <div class="container text-center">
+        <h1><i class="fas fa-store"></i> TBay Market</h1>
+        <p class="lead">Thunder Bay's #1 Student Marketplace</p>
+        <form action="/" method="GET" class="d-flex search-box mx-auto mt-3" style="max-width:600px">
+            <i class="fas fa-search p-2 text-muted"></i>
+            <input type="text" name="search" class="form-control border-0" placeholder="Search for anything..." value="{{ search }}">
+            <select name="category" class="form-select border-0" style="max-width:160px">
+                <option value="">All Categories</option>
+                <option value="Textbooks" {% if category=='Textbooks' %}selected{% endif %}>📚 Textbooks</option>
+                <option value="Electronics" {% if category=='Electronics' %}selected{% endif %}>💻 Electronics</option>
+                <option value="Furniture" {% if category=='Furniture' %}selected{% endif %}>🛋️ Furniture</option>
+                <option value="Rides" {% if category=='Rides' %}selected{% endif %}>🚗 Rides</option>
+                <option value="Jobs" {% if category=='Jobs' %}selected{% endif %}>💼 Jobs</option>
+                <option value="Other" {% if category=='Other' %}selected{% endif %}>📦 Other</option>
+            </select>
+            <button class="btn btn-primary px-4" type="submit">Search</button>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="fw-bold">{{ ads|length }} Listings Found</h5>
+        {% if current_user.is_authenticated %}
+        <a href="/post-ad" class="btn btn-primary"><i class="fas fa-plus"></i> Post Ad</a>
+        {% endif %}
+    </div>
+
+    {% if ads %}
+    <div class="row g-4">
+        {% for ad in ads %}
+        <div class="col-md-4 col-sm-6">
+            <div class="card h-100">
+                {% if ad.image != 'default.jpg' %}
+                <img src="/static/uploads/{{ ad.image }}" class="card-img-top" style="height:200px;object-fit:cover;border-radius:12px 12px 0 0">
+                {% else %}
+                <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height:200px;border-radius:12px 12px 0 0">
+                    <i class="fas fa-image fa-3x text-muted"></i>
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <span class="badge-category">{{ ad.category }}</span>
+                    <h5 class="card-title mt-2 fw-bold">{{ ad.title }}</h5>
+                    <p class="card-text text-muted small">{{ ad.description[:80] }}...</p>
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <span class="price-tag">${{ "%.2f"|format(ad.price) }}</span>
+                        <small class="text-muted"><i class="fas fa-map-marker-alt"></i> {{ ad.location }}</small>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <a href="/ad/{{ ad.id }}" class="btn btn-primary w-100">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <i class="fas fa-search fa-4x text-muted mb-3"></i>
+        <h4 class="text-muted">No ads found</h4>
+        <p class="text-muted">Be the first to post an ad!</p>
+        {% if current_user.is_authenticated %}
+        <a href="/post-ad" class="btn btn-primary mt-2">Post First Ad</a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

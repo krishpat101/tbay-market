@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="card p-4">
+                <div class="text-center mb-4">
+                    <i class="fas fa-plus-circle fa-3x" style="color:#e94560"></i>
+                    <h3 class="fw-bold mt-2">Post New Ad</h3>
+                    <p class="text-muted">Fill in the details below</p>
+                </div>
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Title</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-heading"></i></span>
+                            <input type="text" name="title" class="form-control" placeholder="e.g. iPhone 13 for sale" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Description</label>
+                        <textarea name="description" class="form-control" rows="4" placeholder="Describe your item in detail..." required></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Price ($)</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                <input type="number" name="price" class="form-control" placeholder="0.00" step="0.01" min="0" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Category</label>
+                            <select name="category" class="form-select" required>
+                                <option value="">Select category...</option>
+                                <option value="Textbooks">📚 Textbooks</option>
+                                <option value="Electronics">💻 Electronics</option>
+                                <option value="Furniture">🛋️ Furniture</option>
+                                <option value="Rides">🚗 Rides</option>
+                                <option value="Jobs">💼 Jobs</option>
+                                <option value="Other">📦 Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Location</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                            <input type="text" name="location" class="form-control" value="Thunder Bay, ON" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Image (optional)</label>
+                        <input type="file" name="image" class="form-control" accept="image/*">
+                        <small class="text-muted">Accepted: JPG, PNG, GIF (max 16MB)</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">
+                        <i class="fas fa-paper-plane"></i> Post Ad
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

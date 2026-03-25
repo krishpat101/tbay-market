@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold">My Ads</h3>
+            <p class="text-muted">Manage your listings</p>
+        </div>
+        <a href="/post-ad" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Post New Ad
+        </a>
+    </div>
+
+    {% if ads %}
+    <div class="row g-4">
+        {% for ad in ads %}
+        <div class="col-md-4 col-sm-6">
+            <div class="card h-100">
+                {% if ad.image != 'default.jpg' %}
+                <img src="/static/uploads/{{ ad.image }}" class="card-img-top" style="height:180px;object-fit:cover;border-radius:12px 12px 0 0">
+                {% else %}
+                <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height:180px;border-radius:12px 12px 0 0">
+                    <i class="fas fa-image fa-3x text-muted"></i>
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <span class="badge-category">{{ ad.category }}</span>
+                    <h5 class="card-title mt-2 fw-bold">{{ ad.title }}</h5>
+                    <p class="card-text text-muted small">{{ ad.description[:60] }}...</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="price-tag">${{ "%.2f"|format(ad.price) }}</span>
+                        <small class="text-muted">{{ ad.date_posted.strftime('%b %d, %Y') }}</small>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0 d-flex gap-2">
+                    <a href="/ad/{{ ad.id }}" class="btn btn-primary w-50">
+                        <i class="fas fa-eye"></i> View
+                    </a>
+                    <a href="/delete-ad/{{ ad.id }}" class="btn btn-danger w-50"
+                       onclick="return confirm('Delete this ad?')">
+                        <i class="fas fa-trash"></i> Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <i class="fas fa-box-open fa-4x text-muted mb-3"></i>
+        <h4 class="text-muted">No ads yet!</h4>
+        <p class="text-muted">Start selling by posting your first ad</p>
+        <a href="/post-ad" class="btn btn-primary mt-2">
+            <i class="fas fa-plus"></i> Post First Ad
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
