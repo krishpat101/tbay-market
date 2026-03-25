@@ -35,9 +35,10 @@ TBay Market is a full-stack classified ads web application for Lakehead Universi
 - Frontend: HTML + Bootstrap 5  
 - Storage: Local filesystem (`static/uploads/`)  
 
----
+## How to Run
+pip install flask flask-sqlalchemy flask-login bcrypt pillow  
+python app.py  
+Open http://127.0.0.1:5000  
 
-## ⚙️ How to Run
-```bash
-pip install flask flask-sqlalchemy flask-login bcrypt pillow
-python app.py
+## Author
+Krish Patel
