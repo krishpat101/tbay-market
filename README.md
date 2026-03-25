@@ -2,7 +2,7 @@
 **Thunder Bay's Student Classified Marketplace**  
 
 COMP 4431 / 4432 / 4434 — Winter 2026  
-**Krish Patel · Student #1209157 · Lakehead University**
+**Krish Patel · Student · Lakehead University**
 
 ---
 
